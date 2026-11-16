@@ -1,0 +1,20 @@
+{{> head}}
+<body>
+{{> appShell}}
+<section class="page-heading">
+  <div><p class="eyebrow">PRODUCT CATALOG</p><h1>{{title}}</h1><p>Set the product's supplier, current stock, minimum stock, and purchase price.</p></div>
+  <a class="button button-secondary" href="/products">← Back to products</a>
+</section>
+<section class="panel form-panel">
+  <form class="form-grid" method="POST" action="{{#if product.id}}/products/{{product.id}}{{else}}/products{{/if}}">
+    <label class="span-2">Product name<input name="name" value="{{product.name}}" maxlength="160" required></label>
+    <label>SKU <span class="field-help">Optional, must be unique</span><input name="sku" value="{{product.sku}}" maxlength="80"></label>
+    <label>Supplier <select name="supplierId"><option value="">Any supplier</option>{{#each suppliers}}<option value="{{id}}" {{#if (eq ../product.supplierId id)}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>
+    <label>Unit<input name="unit" value="{{#if product.unit}}{{product.unit}}{{else}}each{{/if}}" maxlength="40" required></label>
+    <label>Purchase unit price<input type="number" name="unitPrice" value="{{#if product.id}}{{product.unitPrice}}{{else}}0.00{{/if}}" min="0" step="0.01" required></label>
+    <label>Current stock<input type="number" name="stockQuantity" value="{{#if product.id}}{{product.stockQuantity}}{{else}}0{{/if}}" min="0" step="1" required></label>
+    <label>Minimum stock<input type="number" name="minimumStock" value="{{#if product.id}}{{product.minimumStock}}{{else}}0{{/if}}" min="0" step="1" required></label>
+    <div class="form-actions span-2"><a class="button button-secondary" href="/products">Cancel</a><button class="button button-primary" type="submit">{{#if product.id}}Save changes{{else}}Add product{{/if}}</button></div>
+  </form>
+</section>
+{{> appEnd}}

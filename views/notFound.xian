@@ -1,0 +1,8 @@
+{{> head}}
+<body class="auth-page">
+  <main class="auth-card">
+    <a class="brand auth-brand" href="/"><span class="brand-mark">SL</span><span><strong>SupplyLink</strong><small>Purchasing &amp; stock management</small></span></a>
+    <div class="auth-intro"><p class="eyebrow">NOT FOUND</p><h1>{{title}}</h1><p>The page or record may have been removed.</p></div>
+    <a class="button button-primary button-full" href="/dashboard">Return to dashboard</a>
+  </main>
+{{> footer}}

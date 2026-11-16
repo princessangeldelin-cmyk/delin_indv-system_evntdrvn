@@ -1,0 +1,16 @@
+{{> head}}
+<body>
+{{> appShell}}
+<section class="page-heading">
+  <div><p class="eyebrow">PURCHASING</p><h1>Purchase orders</h1><p>Create orders, review their progress, and record deliveries.</p></div>
+  <a class="button button-primary" href="/purchase-orders/new">＋ Create purchase order</a>
+</section>
+<section class="panel">
+  <div class="panel-heading"><div><h2>All purchase orders</h2><p>{{orders.length}} purchase orders</p></div><div class="list-filters"><form method="GET" action="/purchase-orders"><select class="status-filter" name="status" onchange="this.form.submit()"><option value="">All statuses</option>{{#each statuses}}<option value="{{this}}" {{#if (eq ../selectedStatus this)}}selected{{/if}}>{{this}}</option>{{/each}}</select></form><input class="search-input" type="search" placeholder="Search orders..." data-search="#orders-table"></div></div>
+  {{#if orders.length}}
+  <div class="table-wrap"><table id="orders-table"><thead><tr><th>Order</th><th>Supplier</th><th>Created by</th><th>Date</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>
+    {{#each orders}}<tr data-row><td><strong>{{orderNumber}}</strong></td><td>{{Supplier.name}}</td><td>{{creator.name}}</td><td>{{createdAt}}</td><td>${{totalAmount}}</td><td><span class="status">{{status}}</span></td><td><a class="button button-small button-secondary" href="/purchase-orders/{{id}}">View details</a></td></tr>{{/each}}
+  </tbody></table></div>
+  {{else}}<div class="empty-state"><span>⇄</span><strong>No purchase orders yet</strong><p>Build an order from your supplier and product catalog.</p><a class="button button-primary" href="/purchase-orders/new">Create purchase order</a></div>{{/if}}
+</section>
+{{> appEnd}}

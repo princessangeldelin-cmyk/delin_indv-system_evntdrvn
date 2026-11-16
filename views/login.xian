@@ -1,0 +1,14 @@
+{{> head}}
+<body class="auth-page">
+  <main class="auth-card">
+    <a class="brand auth-brand" href="/"><span class="brand-mark">SL</span><span><strong>SupplyLink</strong><small>Purchasing &amp; stock management</small></span></a>
+    <div class="auth-intro"><p class="eyebrow">WELCOME BACK</p><h1>Sign in to SupplyLink</h1><p>Manage suppliers, purchase orders, and stock in one place.</p></div>
+    {{> alerts}}
+    <form class="form-stack" method="POST" action="/login">
+      <label>Email address<input type="email" name="email" autocomplete="username" required></label>
+      <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+      <button class="button button-primary button-full" type="submit">Sign in</button>
+    </form>
+    <p class="auth-footnote">For first-time setup, <a href="/register">create the administrator account</a>.</p>
+  </main>
+{{> footer}}

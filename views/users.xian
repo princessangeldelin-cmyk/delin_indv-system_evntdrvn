@@ -1,0 +1,24 @@
+{{> head}}
+<body>
+{{> appShell}}
+<section class="page-heading">
+  <div><p class="eyebrow">ADMINISTRATION</p><h1>User accounts</h1><p>Create staff access for purchasing and receiving work.</p></div>
+</section>
+<section class="dashboard-grid users-grid">
+  <div class="panel">
+    <div class="panel-heading"><div><h2>Team members</h2><p>{{users.length}} accounts</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Added</th><th></th></tr></thead><tbody>
+      {{#each users}}<tr><td><strong>{{name}}</strong></td><td>{{email}}</td><td><span class="role-badge">{{role}}</span></td><td>{{createdAt}}</td><td>{{#if (eq role 'Staff')}}<form method="POST" action="/users/{{id}}/delete" onsubmit="return confirm('Delete this staff account?')"><button class="button button-small button-danger" type="submit">Delete</button></form>{{/if}}</td></tr>{{/each}}
+    </tbody></table></div>
+  </div>
+  <div class="panel form-panel">
+    <div class="panel-heading"><div><h2>Add staff account</h2><p>Staff can manage suppliers, products, and orders.</p></div></div>
+    <form class="form-stack" method="POST" action="/users">
+      <label>Full name<input name="name" maxlength="120" required></label>
+      <label>Email address<input type="email" name="email" maxlength="190" required></label>
+      <label>Temporary password<input type="password" name="password" minlength="8" required><span class="field-help">At least 8 characters</span></label>
+      <button class="button button-primary" type="submit">Create staff account</button>
+    </form>
+  </div>
+</section>
+{{> appEnd}}

@@ -1,0 +1,41 @@
+{{> head}}
+<body>
+{{> appShell}}
+<section class="page-heading">
+  <div><p class="eyebrow">PURCHASING INSIGHTS</p><h1>Reports</h1><p>Review purchase order activity and supplier spending for a selected period.</p></div>
+  <div class="report-actions"><a class="button button-secondary" href="/reports/purchase-orders.csv?from={{from}}&amp;to={{to}}">Download CSV</a><button class="button button-primary" type="button" onclick="window.print()">Print report</button></div>
+</section>
+<section class="panel report-filter">
+  <form method="GET" action="/reports" class="date-filter">
+    <label>From<input type="date" name="from" value="{{from}}" required></label>
+    <label>To<input type="date" name="to" value="{{to}}" required></label>
+    <button class="button button-primary" type="submit">Apply dates</button>
+  </form>
+</section>
+<section class="stat-grid report-stat-grid">
+  <div class="stat-card"><span class="stat-icon icon-blue">⇄</span><span class="stat-label">Orders in period</span><strong>{{summary.orderCount}}</strong><small>Created in the selected dates</small></div>
+  <div class="stat-card"><span class="stat-icon icon-green">$</span><span class="stat-label">Purchasing total</span><strong>${{summary.spend}}</strong><small>Total value of orders created</small></div>
+  <div class="stat-card"><span class="stat-icon icon-orange">⌛</span><span class="stat-label">Pending approval</span><strong>{{summary.pendingCount}}</strong><small>Orders not approved yet</small></div>
+  <div class="stat-card"><span class="stat-icon icon-violet">✓</span><span class="stat-label">Received orders</span><strong>{{summary.receivedCount}}</strong><small>Fully received orders</small></div>
+</section>
+<section class="reports-grid">
+  <div class="panel">
+    <div class="panel-heading"><div><h2>Spend by supplier</h2><p>Purchase order totals during the selected period</p></div></div>
+    {{#if suppliers.length}}
+    <div class="supplier-report-list">{{#each suppliers}}<div class="supplier-report-row"><div class="supplier-report-meta"><strong>{{name}}</strong><span>{{orderCount}} orders · ${{spend}}</span></div><div class="supplier-bar-track"><span style="width: {{sharePercent}}%"></span></div></div>{{/each}}</div>
+    {{else}}<div class="empty-state"><span>▤</span><strong>No purchasing activity</strong><p>No purchase orders were created during these dates.</p></div>{{/if}}
+  </div>
+  <div class="panel">
+    <div class="panel-heading"><div><h2>How to read this report</h2><p>Simple purchasing summaries</p></div></div>
+    <div class="report-help"><p><strong>Purchasing total</strong> sums the full value of purchase orders created in the date range.</p><p><strong>Spend by supplier</strong> groups that same order value by supplier.</p><p><strong>Received orders</strong> counts orders that have been fully received.</p><p>Download a CSV to open the order list in a spreadsheet.</p></div>
+  </div>
+</section>
+<section class="panel report-orders">
+  <div class="panel-heading"><div><h2>Purchase orders in period</h2><p>{{summary.orderCount}} orders · {{from}} to {{to}}</p></div><input class="search-input" type="search" placeholder="Search orders..." data-search="#report-orders-table"></div>
+  {{#if orders.length}}
+  <div class="table-wrap"><table id="report-orders-table"><thead><tr><th>Order</th><th>Date</th><th>Supplier</th><th>Status</th><th>Total</th><th></th></tr></thead><tbody>
+    {{#each orders}}<tr data-row><td><strong>{{orderNumber}}</strong></td><td>{{dateOnly createdAt}}</td><td>{{Supplier.name}}</td><td><span class="status">{{status}}</span></td><td>${{totalAmount}}</td><td><a class="button button-small button-secondary" href="/purchase-orders/{{id}}">View</a></td></tr>{{/each}}
+  </tbody></table></div>
+  {{else}}<div class="empty-state"><span>⇄</span><strong>No orders in this period</strong><p>Try a wider date range.</p></div>{{/if}}
+</section>
+{{> appEnd}}

@@ -1,0 +1,16 @@
+{{> head}}
+<body>
+{{> appShell}}
+<section class="page-heading">
+  <div><p class="eyebrow">DIRECTORY</p><h1>Suppliers</h1><p>Keep supplier contact details ready for purchasing.</p></div>
+  <a class="button button-primary" href="/suppliers/new">＋ Add supplier</a>
+</section>
+<section class="panel">
+  <div class="panel-heading"><div><h2>All suppliers</h2><p>{{suppliers.length}} supplier records</p></div><input class="search-input" type="search" placeholder="Search suppliers..." data-search="#supplier-table"></div>
+  {{#if suppliers.length}}
+  <div class="table-wrap"><table id="supplier-table"><thead><tr><th>Supplier</th><th>Contact person</th><th>Email</th><th>Phone</th><th>Products</th><th>Actions</th></tr></thead><tbody>
+    {{#each suppliers}}<tr data-row><td><strong>{{name}}</strong><small class="table-sub">{{address}}</small></td><td>{{#if contactName}}{{contactName}}{{else}}—{{/if}}</td><td>{{#if email}}{{email}}{{else}}—{{/if}}</td><td>{{#if phone}}{{phone}}{{else}}—{{/if}}</td><td>{{Products.length}}</td><td><div class="table-actions"><a class="button button-small button-secondary" href="/suppliers/{{id}}/edit">Edit</a><form method="POST" action="/suppliers/{{id}}/delete" onsubmit="return confirm('Delete this supplier?')"><button class="button button-small button-danger" type="submit">Delete</button></form></div></td></tr>{{/each}}
+  </tbody></table></div>
+  {{else}}<div class="empty-state"><span>♧</span><strong>No suppliers added</strong><p>Add your first supplier to start creating purchase orders.</p><a class="button button-primary" href="/suppliers/new">Add supplier</a></div>{{/if}}
+</section>
+{{> appEnd}}

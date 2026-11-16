@@ -1,0 +1,34 @@
+{{> head}}
+<body>
+{{> appShell}}
+<section class="page-heading">
+  <div><p class="eyebrow">PURCHASE ORDER</p><h1>{{order.orderNumber}}</h1><p>Supplier: <strong>{{order.Supplier.name}}</strong> · Created by {{order.creator.name}}</p></div>
+  <a class="button button-secondary" href="/purchase-orders">← All purchase orders</a>
+</section>
+<section class="detail-grid">
+  <div class="panel">
+    <div class="panel-heading"><div><h2>Order items</h2><p>Recorded quantities are added to product stock.</p></div><span class="status">{{order.status}}</span></div>
+    <div class="table-wrap"><table><thead><tr><th>Product</th><th>Ordered</th><th>Received</th><th>Unit price</th><th>Line total</th></tr></thead><tbody>
+      {{#each order.items}}<tr><td><strong>{{Product.name}}</strong><small class="table-sub">{{Product.sku}}</small></td><td>{{quantity}} {{Product.unit}}</td><td>{{receivedQuantity}} / {{quantity}}</td><td>${{unitPrice}}</td><td>${{lineTotal quantity unitPrice}}</td></tr>{{/each}}
+    </tbody></table></div>
+    <div class="order-summary"><span>Order total</span><strong>${{order.totalAmount}}</strong></div>
+  </div>
+  <aside class="panel workflow-panel">
+    <p class="eyebrow">ORDER WORKFLOW</p><h2>{{order.status}}</h2>
+    <div class="detail-meta"><span>Supplier</span><strong>{{order.Supplier.name}}</strong><span>Created</span><strong>{{order.createdAt}}</strong></div>
+    {{#if (eq order.status 'Pending approval')}}
+      {{#if (eq currentUser.role 'Administrator')}}
+      <form method="POST" action="/purchase-orders/{{order.id}}/approve"><button class="button button-primary button-full" type="submit">Approve purchase order</button></form>
+      {{else}}<p class="workflow-note">Waiting for an administrator to approve this order.</p>{{/if}}
+    {{/if}}
+    {{#if (or (eq order.status 'Approved') (eq order.status 'Partially received'))}}
+    <form method="POST" action="/purchase-orders/{{order.id}}/receive" class="receipt-form">
+      <p class="workflow-note">Enter quantities from this delivery. Leave items not delivered at zero.</p>
+      {{#each outstandingItems}}<label>{{Product.name}} <small>({{quantity}} ordered · {{receivedQuantity}} received)</small><input type="number" name="receivedQty_{{id}}" min="0" max="{{subtract quantity receivedQuantity}}" step="1" value="0" required></label>{{/each}}
+      <button class="button button-primary button-full" type="submit">Record delivery &amp; update stock</button>
+    </form>
+    {{/if}}
+    {{#if (eq order.status 'Received')}}<div class="notice notice-success">All ordered quantities have been received. Product stock has been updated.</div>{{/if}}
+  </aside>
+</section>
+{{> appEnd}}

@@ -1,0 +1,17 @@
+    </main>
+    <footer class="app-footer">SupplyLink · Supplier, purchasing, and replenishment management</footer>
+  </div>
+</div>
+<script>
+  document.querySelectorAll("[data-search]").forEach((input) => {
+    input.addEventListener("input", () => {
+      const table = document.querySelector(input.dataset.search);
+      if (!table) return;
+      const term = input.value.toLowerCase();
+      table.querySelectorAll("[data-row]").forEach(row => {
+        row.hidden = !row.textContent.toLowerCase().includes(term);
+      });
+    });
+  });
+</script>
+{{> footer}}

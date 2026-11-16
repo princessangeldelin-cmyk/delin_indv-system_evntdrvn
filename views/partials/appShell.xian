@@ -1,0 +1,31 @@
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="/dashboard">
+      <span class="brand-mark">SL</span>
+      <span><strong>SupplyLink</strong><small>Purchasing &amp; stock</small></span>
+    </a>
+    <div class="nav-caption">WORKSPACE</div>
+    <nav class="side-nav">
+      <a href="/dashboard" class="{{#if (eq activePage 'dashboard')}}active{{/if}}"><span>▦</span> Dashboard</a>
+      <a href="/suppliers" class="{{#if (eq activePage 'suppliers')}}active{{/if}}"><span>♧</span> Suppliers</a>
+      <a href="/products" class="{{#if (eq activePage 'products')}}active{{/if}}"><span>□</span> Products</a>
+      <a href="/purchase-orders" class="{{#if (eq activePage 'orders')}}active{{/if}}"><span>⇄</span> Purchase orders</a>
+      <a href="/reports" class="{{#if (eq activePage 'reports')}}active{{/if}}"><span>▤</span> Reports</a>
+      {{#if (eq currentUser.role 'Administrator')}}
+      <div class="nav-caption admin-caption">ADMINISTRATION</div>
+      <a href="/users" class="{{#if (eq activePage 'users')}}active{{/if}}"><span>♙</span> User accounts</a>
+      {{/if}}
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-note">Stock insight<br><strong>Low stock items are flagged automatically.</strong></div>
+      <a class="sign-out" href="/logout">↗ <span>Sign out</span></a>
+    </div>
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <div class="mobile-brand"><span class="brand-mark">SL</span><strong>SupplyLink</strong></div>
+      <div class="page-context">{{ title }}</div>
+      <div class="user-chip"><span class="avatar">{{initial currentUser.name}}</span><span><strong>{{currentUser.name}}</strong><small>{{currentUser.role}}</small></span></div>
+    </header>
+    <main class="content">
+      {{> alerts}}
