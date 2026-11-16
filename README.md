@@ -49,7 +49,7 @@ SupplyLink is a small XianFire (Express) application for supplier records, produ
 - Create a purchase order with a supplier, products, and quantities. It starts as **Pending approval**.
 - An Administrator approves the order. Staff or Administrators can record deliveries against approved orders.
 - Receiving a quantity updates both the order's received quantity and the product's current stock in one database transaction. Partial deliveries remain open until all ordered units are received.
-- Use **Reports** to summarize purchasing totals, supplier spend, approval status, and fully received orders by date range; purchase-order lists can also be filtered by status.
+- Use **Reports** to summarize purchasing totals, supplier spend, approval status, and fully received orders by date range. Download the report as CSV, Word, or PDF; purchase-order lists can also be filtered by status.
 
 The database contains only `users`, `suppliers`, `products`, `purchase_orders`, and `order_items`. Product-to-supplier assignment is stored on the product; received quantities are stored on order items. Sales, payments, external inventory integrations, and discrepancy history are outside this simple implementation.
 

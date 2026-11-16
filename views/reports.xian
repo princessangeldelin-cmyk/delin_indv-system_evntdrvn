@@ -3,7 +3,7 @@
 {{> appShell}}
 <section class="page-heading">
   <div><p class="eyebrow">PURCHASING INSIGHTS</p><h1>Reports</h1><p>Review purchase order activity and supplier spending for a selected period.</p></div>
-  <div class="report-actions"><a class="button button-secondary" href="/reports/purchase-orders.csv?from={{from}}&amp;to={{to}}">Download CSV</a><button class="button button-primary" type="button" onclick="window.print()">Print report</button></div>
+  <div class="report-actions"><a class="button button-secondary" href="/reports/purchase-orders.csv?from={{from}}&amp;to={{to}}">Download CSV</a><a class="button button-secondary" href="/reports/purchase-orders.docx?from={{from}}&amp;to={{to}}">Download Word</a><a class="button button-secondary" href="/reports/purchase-orders.pdf?from={{from}}&amp;to={{to}}">Download PDF</a><button class="button button-primary" type="button" onclick="window.print()">Print report</button></div>
 </section>
 <section class="panel report-filter">
   <form method="GET" action="/reports" class="date-filter">
@@ -27,7 +27,7 @@
   </div>
   <div class="panel">
     <div class="panel-heading"><div><h2>How to read this report</h2><p>Simple purchasing summaries</p></div></div>
-    <div class="report-help"><p><strong>Purchasing total</strong> sums the full value of purchase orders created in the date range.</p><p><strong>Spend by supplier</strong> groups that same order value by supplier.</p><p><strong>Received orders</strong> counts orders that have been fully received.</p><p>Download a CSV to open the order list in a spreadsheet.</p></div>
+    <div class="report-help"><p><strong>Purchasing total</strong> sums the full value of purchase orders created in the date range.</p><p><strong>Spend by supplier</strong> groups that same order value by supplier.</p><p><strong>Received orders</strong> counts orders that have been fully received.</p><p>Download the report as CSV, Word, or PDF.</p></div>
   </div>
 </section>
 <section class="panel report-orders">

@@ -30,6 +30,8 @@ router.use(requireAuth);
 router.get("/dashboard", dashboardPage);
 router.get("/reports", reports.reportsPage);
 router.get("/reports/purchase-orders.csv", reports.exportPurchaseOrders);
+router.get("/reports/purchase-orders.docx", reports.exportPurchaseOrdersWord);
+router.get("/reports/purchase-orders.pdf", reports.exportPurchaseOrdersPdf);
 
 router.get("/suppliers", suppliers.listSuppliers);
 router.get("/suppliers/new", suppliers.newSupplier);
